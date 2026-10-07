@@ -10,6 +10,7 @@ Fecha: 7 de octubre de 2026. Workspace: `C:\backend`. Rama: `feature/implementac
 | `go vet ./...` | Correcto |
 | `go test ./... -count=1` con `TEST_DATABASE_URL` | Correcto, integración incluida |
 | `go build ./...` | Correcto |
+| `govulncheck` después de actualizar x/text | Sin vulnerabilidades conocidas alcanzables |
 | Compilación de api, migrate y provision para linux/amd64, CGO deshabilitado | Correcto |
 | Especificación OpenAPI 3.0.3 validada con kin-openapi | Correcto |
 | Plantillas AWS validadas con cfn-lint 1.47.0 | Correcto |
@@ -36,6 +37,8 @@ Go usado: 1.27.1 para Windows amd64, obtenido del catálogo oficial y verificado
 - HTTP: CORS, confianza acotada en proxies, UUID y JSON estricto.
 
 Las pruebas de IA utilizan un proveedor de pruebas y un servidor HTTP local. Eso valida el adapter y la persistencia, **no** una llamada con una cuenta real del proveedor.
+
+Se detectó y corrigió la dependencia transitiva afectada por [GO-2026-5970](https://pkg.go.dev/vuln/GO-2026-5970), actualizando `golang.org/x/text` a 0.39.0. El escaneo de vulnerabilidades forma parte de CI.
 
 ## Pendientes externos
 
