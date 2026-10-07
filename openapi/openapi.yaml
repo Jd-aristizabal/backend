@@ -1,0 +1,1552 @@
+openapi: 3.0.3
+info:
+  title: API de Johan Aristizabal
+  version: 1.0.0
+  description: 'Backend Go de portafolio. Identificación anónima por UUID en X-Client-ID:
+    identifica datos, no autentica personas. Todas las respuestas de negocio usan
+    data; health/ready usan status. Sin cambios al frontend en Vercel.'
+servers:
+- url: http://localhost:8080
+  description: Desarrollo
+paths:
+  /health:
+    get:
+      summary: Estado del proceso
+      operationId: get__health
+      tags:
+      - Health
+      security: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /ready:
+    get:
+      summary: Conectividad PostgreSQL
+      operationId: get__ready
+      tags:
+      - Health
+      security: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /api/v1/portfolio/profile:
+    get:
+      summary: Consultar profile
+      operationId: get__api_v1_portfolio_profile
+      tags:
+      - Portfolio
+      security: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Profile'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /api/v1/portfolio/projects:
+    get:
+      summary: Consultar projects
+      operationId: get__api_v1_portfolio_projects
+      tags:
+      - Portfolio
+      security: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /api/v1/portfolio/skills:
+    get:
+      summary: Consultar skills
+      operationId: get__api_v1_portfolio_skills
+      tags:
+      - Portfolio
+      security: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Skill'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /api/v1/portfolio/contact:
+    get:
+      summary: Consultar contact
+      operationId: get__api_v1_portfolio_contact
+      tags:
+      - Portfolio
+      security: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contact'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /api/v1/focus/tasks:
+    get:
+      summary: Listar tareas
+      operationId: get__api_v1_focus_tasks
+      tags:
+      - Focus
+      security:
+      - ClientID: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Task'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+        description: Cantidad máxima de resultados
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 10000
+          default: 0
+        description: Desplazamiento
+    post:
+      summary: Crear tarea
+      operationId: post__api_v1_focus_tasks
+      tags:
+      - Focus
+      security:
+      - ClientID: []
+      responses:
+        '201':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Task'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTask'
+  /api/v1/focus/tasks/{id}:
+    patch:
+      summary: Editar, completar o reabrir tarea
+      operationId: patch__api_v1_focus_tasks_id_
+      tags:
+      - Focus
+      security:
+      - ClientID: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Task'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchTask'
+    delete:
+      summary: Eliminar tarea
+      operationId: delete__api_v1_focus_tasks_id_
+      tags:
+      - Focus
+      security:
+      - ClientID: []
+      responses:
+        '204':
+          description: Eliminado sin cuerpo
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /api/v1/focus/sessions:
+    get:
+      summary: Listar historial y sesión activa
+      operationId: get__api_v1_focus_sessions
+      tags:
+      - Focus
+      security:
+      - ClientID: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Session'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+        description: Cantidad máxima de resultados
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 10000
+          default: 0
+        description: Desplazamiento
+    post:
+      summary: Iniciar sesión
+      operationId: post__api_v1_focus_sessions
+      tags:
+      - Focus
+      security:
+      - ClientID: []
+      responses:
+        '201':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Session'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      description: Una sesión activa por client_id. Devuelve 409 si existe una sesión
+        activa. task_id debe pertenecer al mismo cliente.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSession'
+  /api/v1/focus/sessions/{id}/complete:
+    patch:
+      summary: Completar sesión
+      operationId: patch__api_v1_focus_sessions_id_complete
+      tags:
+      - Focus
+      security:
+      - ClientID: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Session'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      description: El servidor exige que transcurra duration_seconds desde started_at.
+        Repetir complete es idempotente; una sesión cancelada devuelve 409.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /api/v1/focus/sessions/{id}/cancel:
+    patch:
+      summary: Cancelar sesión
+      operationId: patch__api_v1_focus_sessions_id_cancel
+      tags:
+      - Focus
+      security:
+      - ClientID: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Session'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      description: Repetir cancel es idempotente; una sesión completada devuelve 409.
+        No requiere cuerpo.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+  /api/v1/focus/stats:
+    get:
+      summary: Totales y últimos siete días
+      operationId: get__api_v1_focus_stats
+      tags:
+      - Focus
+      security:
+      - ClientID: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Stats'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: time_zone
+        in: query
+        required: false
+        schema:
+          type: string
+          default: America/Bogota
+        description: Zona IANA para agrupar días
+  /api/v1/games/pixel-sprint/scores:
+    post:
+      summary: Registrar partida
+      operationId: post__api_v1_games_pixel_sprint_scores
+      tags:
+      - Pixel Sprint
+      security:
+      - ClientID: []
+      responses:
+        '201':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Score'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      description: max_combo es la racha máxima de aciertos, no el multiplicador ×5.
+        Se verifican duración, nivel y puntuación contra las reglas públicas. No se
+        garantiza anti-cheat.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitScore'
+  /api/v1/games/pixel-sprint/leaderboard:
+    get:
+      summary: Mejor resultado por cliente
+      operationId: get__api_v1_games_pixel_sprint_leaderboard
+      tags:
+      - Pixel Sprint
+      security: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Score'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      description: 'Empates: resultado más antiguo y luego UUID. No publica client_id.'
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        description: TOP 10 por defecto
+  /api/v1/games/pixel-sprint/me:
+    get:
+      summary: Historial y récord personal
+      operationId: get__api_v1_games_pixel_sprint_me
+      tags:
+      - Pixel Sprint
+      security:
+      - ClientID: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Personal'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+        description: Cantidad máxima de resultados
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 10000
+          default: 0
+        description: Desplazamiento
+  /api/v1/chat:
+    post:
+      summary: Consultar asistente sobre Johan
+      operationId: post__api_v1_chat
+      tags:
+      - Chat
+      security:
+      - ClientID: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ChatResponse'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      description: Sin conversation_id crea conversación al completar la respuesta.
+        Solo guarda pares exitosos. Máximo 1000 caracteres, 12 mensajes históricos
+        de 1000 caracteres, 400 tokens de salida, 20 segundos de timeout. AI_PROVIDER=disabled
+        devuelve 503. Límites de consumo persisten en PostgreSQL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+  /api/v1/chat/conversations:
+    post:
+      summary: Crear conversación
+      operationId: post__api_v1_chat_conversations
+      tags:
+      - Chat
+      security:
+      - ClientID: []
+      responses:
+        '201':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Conversation'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+  /api/v1/chat/conversations/{id}/messages:
+    get:
+      summary: Consultar historial
+      operationId: get__api_v1_chat_conversations_id_messages
+      tags:
+      - Chat
+      security:
+      - ClientID: []
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Message'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+        description: Cantidad máxima de resultados
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 10000
+          default: 0
+        description: Desplazamiento
+  /api/v1/chat/conversations/{id}:
+    delete:
+      summary: Borrar conversación e historial
+      operationId: delete__api_v1_chat_conversations_id_
+      tags:
+      - Chat
+      security:
+      - ClientID: []
+      responses:
+        '204':
+          description: Eliminado sin cuerpo
+        '400':
+          $ref: '#/components/responses/Error400'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '405':
+          $ref: '#/components/responses/Error405'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '422':
+          $ref: '#/components/responses/Error422'
+        '429':
+          $ref: '#/components/responses/Error429'
+        '500':
+          $ref: '#/components/responses/Error500'
+        '503':
+          $ref: '#/components/responses/Error503'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+components:
+  securitySchemes:
+    ClientID:
+      type: apiKey
+      in: header
+      name: X-Client-ID
+      description: UUID canónico no nulo generado con crypto.randomUUID(). Guardar
+        en el navegador. No equivale a autenticación.
+  schemas:
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+          required:
+          - code
+          - message
+      required:
+      - error
+    Health:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+      required:
+      - status
+    Task:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          minLength: 1
+          maxLength: 120
+        priority:
+          type: string
+          enum:
+          - alta
+          - media
+          - baja
+        completed:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+      - id
+      - title
+      - priority
+      - completed
+      - created_at
+      - updated_at
+      - completed_at
+    CreateTask:
+      type: object
+      additionalProperties: false
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 120
+        priority:
+          type: string
+          enum:
+          - alta
+          - media
+          - baja
+      required:
+      - title
+      - priority
+    PatchTask:
+      type: object
+      additionalProperties: false
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 120
+        priority:
+          type: string
+          enum:
+          - alta
+          - media
+          - baja
+        completed:
+          type: boolean
+      required: []
+      minProperties: 1
+    Session:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+          format: uuid
+          nullable: true
+        task_title:
+          type: string
+        duration_seconds:
+          type: integer
+          minimum: 60
+          maximum: 7200
+        status:
+          type: string
+          enum:
+          - active
+          - completed
+          - cancelled
+        started_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - task_id
+      - task_title
+      - duration_seconds
+      - status
+      - started_at
+      - finished_at
+      - created_at
+    CreateSession:
+      type: object
+      additionalProperties: false
+      properties:
+        task_id:
+          type: string
+          format: uuid
+          nullable: true
+        duration_seconds:
+          type: integer
+          minimum: 60
+          maximum: 7200
+      required:
+      - duration_seconds
+    Day:
+      type: object
+      additionalProperties: false
+      properties:
+        date:
+          type: string
+          format: date
+        tasks_completed:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+        focused_minutes:
+          type: number
+          minimum: 0
+        sessions_completed:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+      required:
+      - date
+      - tasks_completed
+      - focused_minutes
+      - sessions_completed
+    Stats:
+      type: object
+      additionalProperties: false
+      properties:
+        tasks_completed:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+        tasks_total:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+        focused_minutes:
+          type: number
+          minimum: 0
+        sessions_completed:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+        time_zone:
+          type: string
+        last_7_days:
+          type: array
+          items:
+            $ref: '#/components/schemas/Day'
+          minItems: 7
+          maxItems: 7
+      required:
+      - tasks_completed
+      - tasks_total
+      - focused_minutes
+      - sessions_completed
+      - time_zone
+      - last_7_days
+    SubmitScore:
+      type: object
+      additionalProperties: false
+      properties:
+        score:
+          type: integer
+          minimum: 0
+          maximum: 150000
+          multipleOf: 100
+        max_combo:
+          type: integer
+          minimum: 0
+          maximum: 300
+        level:
+          type: integer
+          minimum: 1
+          maximum: 8
+        duration_seconds:
+          type: integer
+          minimum: 29
+          maximum: 31
+        player_name:
+          type: string
+          maxLength: 40
+          nullable: true
+      required:
+      - score
+      - max_combo
+      - level
+      - duration_seconds
+    Score:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        score:
+          type: integer
+          minimum: 0
+          maximum: 150000
+        max_combo:
+          type: integer
+          minimum: 0
+          maximum: 300
+        level:
+          type: integer
+          minimum: 1
+          maximum: 8
+        duration_seconds:
+          type: integer
+          minimum: 29
+          maximum: 31
+        player_name:
+          type: string
+          maxLength: 40
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - score
+      - max_combo
+      - level
+      - duration_seconds
+      - player_name
+      - created_at
+    Personal:
+      type: object
+      additionalProperties: false
+      properties:
+        best_score:
+          type: integer
+          minimum: 0
+          maximum: 150000
+        games_played:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/Score'
+      required:
+      - best_score
+      - games_played
+      - scores
+    ChatRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+          minLength: 1
+          maxLength: 1000
+        conversation_id:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - message
+    ChatResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+          maxLength: 8000
+        conversation_id:
+          type: string
+          format: uuid
+      required:
+      - message
+      - conversation_id
+    Conversation:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - created_at
+      - updated_at
+    Message:
+      type: object
+      additionalProperties: false
+      properties:
+        role:
+          type: string
+          enum:
+          - user
+          - assistant
+        content:
+          type: string
+      required:
+      - role
+      - content
+    Profile:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        headline:
+          type: string
+        location:
+          type: string
+        availability:
+          type: string
+        bio:
+          type: string
+        focus:
+          type: array
+          items:
+            type: string
+        services:
+          type: array
+          items:
+            type: string
+        experience:
+          type: string
+      required:
+      - name
+      - headline
+      - location
+      - availability
+      - bio
+      - focus
+      - services
+      - experience
+    Project:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        year:
+          type: integer
+          minimum: 2026
+          maximum: 2100
+        technologies:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+          format: uri
+        features:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - name
+      - description
+      - category
+      - year
+      - technologies
+      - url
+      - features
+    Skill:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+      required:
+      - name
+      - category
+    Contact:
+      type: object
+      additionalProperties: false
+      properties:
+        email:
+          type: string
+          format: email
+        whatsapp:
+          type: string
+        whatsapp_url:
+          type: string
+          format: uri
+        portfolio:
+          type: string
+          format: uri
+        github:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - email
+      - whatsapp
+      - whatsapp_url
+      - portfolio
+      - github
+  responses:
+    Error400:
+      description: JSON inválido
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Error403:
+      description: Origen CORS no permitido
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Error404:
+      description: Recurso no encontrado o no pertenece al cliente
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Error405:
+      description: Método no permitido
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Error409:
+      description: Conflicto de estado o solicitud concurrente
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Error422:
+      description: Error de validación
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Error429:
+      description: Límite de solicitudes
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      headers:
+        Retry-After:
+          description: Segundos de espera
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 86400
+    Error500:
+      description: Error interno sanitizado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Error503:
+      description: Servicio o proveedor no disponible
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

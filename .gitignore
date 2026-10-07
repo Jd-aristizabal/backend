@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+.tools/
+frontend-inspection.html
+bin/
+coverage.out
+*.tfstate*
+.terraform/
+*.tfvars
+!*.tfvars.example
+*.log

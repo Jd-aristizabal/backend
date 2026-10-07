@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+.tools
+bin
+frontend-inspection.html
+coverage.out
+*.log
+docs
+deploy
