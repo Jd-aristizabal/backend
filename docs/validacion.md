@@ -48,7 +48,7 @@ Se detectó y corrigió la dependencia transitiva afectada por [GO-2026-5970](ht
 
 1. Detector de carreras Go: configurado en CI Linux; no ejecutado localmente en este equipo.
 2. AWS: no se creó ECR, RDS, ECS, ALB ni Secrets Manager. Falta un perfil AWS configurado, región y certificado ACM emitido para un dominio disponible. El script y las plantillas están preparados y validados estáticamente.
-3. IA real: falta configurar la credencial y elegir un modelo del proveedor. Con la configuración predeterminada se devuelve 503 para consultas normales del chat.
+3. IA real: validada localmente el 8 de octubre con Gemini (`gemini-3.5-flash-lite`), mediante POST /api/v1/chat y lectura de los dos mensajes persistidos. La conversación de verificación se eliminó al terminar. La clave se conserva únicamente en .env, excluido de Git. Falta configurar el secreto en AWS.
 4. Integración del frontend: sus adaptadores publicados siguen usando almacenamiento local y respuestas predefinidas. Solo se analizaron y documentaron sus contratos; no se modificó la UI ni su despliegue en Vercel.
 
 La implementación Go y PostgreSQL funciona localmente. El flujo completo Vercel → AWS → RDS/IA no se declara validado ni desplegado hasta completar estos pasos.

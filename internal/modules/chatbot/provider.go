@@ -34,21 +34,26 @@ func (DisabledProvider) Chat(context.Context, ChatRequest) (ChatResponse, error)
 type HTTPProvider struct {
 	client               *http.Client
 	endpoint, key, model string
+	omitStore            bool
 }
 
 func NewProvider(c config.Config) AIProvider {
 	if c.AIProvider == "disabled" {
 		return DisabledProvider{}
 	}
-	return &HTTPProvider{client: &http.Client{Timeout: c.AITimeout, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}, endpoint: strings.TrimRight(c.AIBaseURL, "/") + "/chat/completions", key: c.AIKey, model: c.AIModel}
+	return &HTTPProvider{client: &http.Client{Timeout: c.AITimeout, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}, endpoint: strings.TrimRight(c.AIBaseURL, "/") + "/chat/completions", key: c.AIKey, model: c.AIModel, omitStore: c.AIProvider == "openai-compatible"}
 }
 func (p *HTTPProvider) Chat(ctx context.Context, r ChatRequest) (ChatResponse, error) {
 	payload := struct {
 		Model     string    `json:"model"`
 		Messages  []Message `json:"messages"`
 		MaxTokens int       `json:"max_completion_tokens"`
-		Store     bool      `json:"store"`
-	}{p.model, r.Messages, r.MaxTokens, false}
+		Store     *bool     `json:"store,omitempty"`
+	}{Model: p.model, Messages: r.Messages, MaxTokens: r.MaxTokens}
+	if !p.omitStore {
+		store := false
+		payload.Store = &store
+	}
 	b, err := json.Marshal(payload)
 	if err != nil {
 		return ChatResponse{}, shared.Unavailable

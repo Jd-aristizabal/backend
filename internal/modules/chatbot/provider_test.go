@@ -87,3 +87,24 @@ func TestHTTPProvider(t *testing.T) {
 		t.Fatal("timeout ignorado")
 	}
 }
+
+func TestCompatibleProviderOmitsUnsupportedStore(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var body map[string]any
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			t.Error(err)
+		}
+		if _, ok := body["store"]; ok {
+			t.Error("parametro store enviado a proveedor compatible")
+		}
+		if body["max_completion_tokens"] != float64(400) {
+			t.Error("limite de tokens ausente")
+		}
+		_, _ = w.Write([]byte(`{"choices":[{"message":{"content":"Johan desarrolla Focus Flow."}}]}`))
+	}))
+	defer server.Close()
+	p := &HTTPProvider{client: server.Client(), endpoint: server.URL, key: "prueba", model: "gemini", omitStore: true}
+	if _, err := p.Chat(context.Background(), ChatRequest{MaxTokens: 400}); err != nil {
+		t.Fatal(err)
+	}
+}

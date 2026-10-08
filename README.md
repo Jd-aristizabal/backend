@@ -22,6 +22,8 @@ Por defecto `AI_PROVIDER=disabled`: el chat devuelve 503 hasta configurar un pro
 docker compose up -d --force-recreate backend
 ```
 
+Para Gemini, usa `AI_PROVIDER=openai-compatible`, `AI_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/` y un `AI_MODEL` habilitado para tu clave (en este equipo se comprobó `gemini-3.5-flash-lite`). Guarda la clave únicamente en `AI_API_KEY` del archivo `.env`, excluido de Git. El adaptador compatible omite `store`, que Gemini rechaza. Documentación: https://ai.google.dev/gemini-api/docs/openai.
+
 Para ejecutar Go sin Docker, exporta `DATABASE_URL` y las variables necesarias en la terminal. La API no carga `.env` por sí sola.
 
 Se requiere Go 1.27.1 en PATH. En este equipo se descargó una distribución portable para validación en `.tools/go/bin`, excluida de Git; se puede agregar temporalmente esa carpeta al PATH de la terminal.
