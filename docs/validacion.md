@@ -1,6 +1,6 @@
 # Validaciones ejecutadas
 
-Fecha: 7 de octubre de 2026. Workspace: `C:\backend`. Rama: `feature/implementacion-backend`.
+Fecha: 8 de octubre de 2026. Workspace: `C:\backend`. Rama: `feature/implementacion-backend`.
 
 ## Resultado local
 
@@ -21,8 +21,12 @@ Fecha: 7 de octubre de 2026. Workspace: `C:\backend`. Rama: `feature/implementac
 | `/portfolio/contact` local | Datos de contacto confirmados |
 | Usuario `backend_api` provisionado | Puede leer tablas; CREATE TABLE rechazado |
 | Existencia de tags de imágenes Go, Alpine y PostgreSQL en registry oficial | Confirmada |
+| `docker compose build` | Correcto; binarios compilados en imagen multistage |
+| `docker compose up -d` | API y PostgreSQL saludables; migración finalizada con código 0 |
+| `/health` y `/ready` del backend Docker | HTTP 200, `status=ok` |
+| Persistencia tras reiniciar API y PostgreSQL | Tarea creada por API recuperada después del reinicio |
 
-Go usado: 1.27.1 para Windows amd64, obtenido del catálogo oficial y verificado por SHA-256. PostgreSQL real de pruebas: 17.6, ejecutado en loopback y puerto 55432 con credencial aleatoria. Docker Compose y la configuración de producción usan PostgreSQL 17.11; la ejecución Docker y RDS con esa versión continúa pendiente.
+Go usado: 1.27.1 para Windows amd64, obtenido del catálogo oficial y verificado por SHA-256. PostgreSQL real de pruebas: 17.6, ejecutado en loopback y puerto 55432 con credencial aleatoria. El 8 de octubre también se ejecutaron fmt, vet, test y build contra PostgreSQL 17.11 en Docker, usando una base de pruebas independiente y esquemas aislados. El backend local está disponible en http://localhost:8080. API y PostgreSQL publican puertos únicamente en loopback; la contraseña local aleatoria reside en .env, excluido de Git. RDS continúa pendiente.
 
 ## Cobertura funcional comprobada
 
@@ -42,10 +46,9 @@ Se detectó y corrigió la dependencia transitiva afectada por [GO-2026-5970](ht
 
 ## Pendientes externos
 
-1. `docker compose build` y `docker compose up -d`: no ejecutados porque el equipo no dispone de Docker ni de un motor Linux. La construcción, el arranque y smoke tests están incluidos en CI y en el script local, pero no se reportan como aprobados todavía.
-2. Detector de carreras Go: configurado en CI Linux; no ejecutado localmente en este equipo.
-3. AWS: no se creó ECR, RDS, ECS, ALB ni Secrets Manager. Falta un perfil AWS configurado, región y certificado ACM emitido para un dominio disponible. El script y las plantillas están preparados y validados estáticamente.
-4. IA real: falta configurar la credencial y elegir un modelo del proveedor. Con la configuración predeterminada se devuelve 503 para consultas normales del chat.
-5. Integración del frontend: sus adaptadores publicados siguen usando almacenamiento local y respuestas predefinidas. Solo se analizaron y documentaron sus contratos; no se modificó la UI ni su despliegue en Vercel.
+1. Detector de carreras Go: configurado en CI Linux; no ejecutado localmente en este equipo.
+2. AWS: no se creó ECR, RDS, ECS, ALB ni Secrets Manager. Falta un perfil AWS configurado, región y certificado ACM emitido para un dominio disponible. El script y las plantillas están preparados y validados estáticamente.
+3. IA real: falta configurar la credencial y elegir un modelo del proveedor. Con la configuración predeterminada se devuelve 503 para consultas normales del chat.
+4. Integración del frontend: sus adaptadores publicados siguen usando almacenamiento local y respuestas predefinidas. Solo se analizaron y documentaron sus contratos; no se modificó la UI ni su despliegue en Vercel.
 
 La implementación Go y PostgreSQL funciona localmente. El flujo completo Vercel → AWS → RDS/IA no se declara validado ni desplegado hasta completar estos pasos.
