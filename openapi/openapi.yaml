@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: API de Johan Aristizabal
   version: 1.0.0
-  description: 'Backend Go de portafolio. IdentificaciÃ³n anÃ³nima por UUID en X-Client-ID:
+  description: 'Backend Go de portafolio. IdentificaciÃƒÂ³n anÃƒÂ³nima por UUID en X-Client-ID:
     identifica datos, no autentica personas. Todas las respuestas de negocio usan
     data; health/ready usan status. Sin cambios al frontend en Vercel.'
 servers:
@@ -18,7 +18,7 @@ paths:
       security: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -50,7 +50,7 @@ paths:
       security: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -82,7 +82,7 @@ paths:
       security: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -120,7 +120,7 @@ paths:
       security: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -160,7 +160,7 @@ paths:
       security: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -200,7 +200,7 @@ paths:
       security: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -239,7 +239,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -279,7 +279,7 @@ paths:
           minimum: 1
           maximum: 100
           default: 50
-        description: Cantidad mÃ¡xima de resultados
+        description: Cantidad mÃƒÂ¡xima de resultados
       - name: offset
         in: query
         required: false
@@ -298,7 +298,7 @@ paths:
       - ClientID: []
       responses:
         '201':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -343,7 +343,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -422,7 +422,7 @@ paths:
           format: uuid
   /api/v1/focus/sessions:
     get:
-      summary: Listar historial y sesiÃ³n activa
+      summary: Listar historial y sesiÃƒÂ³n activa
       operationId: get__api_v1_focus_sessions
       tags:
       - Focus
@@ -430,7 +430,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -470,7 +470,7 @@ paths:
           minimum: 1
           maximum: 100
           default: 50
-        description: Cantidad mÃ¡xima de resultados
+        description: Cantidad mÃƒÂ¡xima de resultados
       - name: offset
         in: query
         required: false
@@ -481,7 +481,7 @@ paths:
           default: 0
         description: Desplazamiento
     post:
-      summary: Iniciar sesiÃ³n
+      summary: Iniciar sesiÃƒÂ³n
       operationId: post__api_v1_focus_sessions
       tags:
       - Focus
@@ -489,7 +489,7 @@ paths:
       - ClientID: []
       responses:
         '201':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -518,7 +518,7 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
-      description: Una sesiÃ³n activa por client_id. Devuelve 409 si existe una sesiÃ³n
+      description: Una sesiÃƒÂ³n activa por client_id. Devuelve 409 si existe una sesiÃƒÂ³n
         activa. task_id debe pertenecer al mismo cliente.
       requestBody:
         required: true
@@ -528,7 +528,7 @@ paths:
               $ref: '#/components/schemas/CreateSession'
   /api/v1/focus/sessions/{id}/complete:
     patch:
-      summary: Completar sesiÃ³n
+      summary: Completar sesiÃƒÂ³n
       operationId: patch__api_v1_focus_sessions_id_complete
       tags:
       - Focus
@@ -536,7 +536,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -566,7 +566,7 @@ paths:
         '503':
           $ref: '#/components/responses/Error503'
       description: El servidor exige que transcurra duration_seconds desde started_at.
-        Repetir complete es idempotente; una sesiÃ³n cancelada devuelve 409.
+        Repetir complete es idempotente; una sesiÃƒÂ³n cancelada devuelve 409.
       parameters:
       - name: id
         in: path
@@ -576,7 +576,7 @@ paths:
           format: uuid
   /api/v1/focus/sessions/{id}/cancel:
     patch:
-      summary: Cancelar sesiÃ³n
+      summary: Cancelar sesiÃƒÂ³n
       operationId: patch__api_v1_focus_sessions_id_cancel
       tags:
       - Focus
@@ -584,7 +584,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -613,7 +613,7 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
-      description: Repetir cancel es idempotente; una sesiÃ³n completada devuelve 409.
+      description: Repetir cancel es idempotente; una sesiÃƒÂ³n completada devuelve 409.
         No requiere cuerpo.
       parameters:
       - name: id
@@ -624,7 +624,7 @@ paths:
           format: uuid
   /api/v1/focus/stats:
     get:
-      summary: Totales y Ãºltimos siete dÃ­as
+      summary: Totales y ÃƒÂºltimos siete dÃƒÂ­as
       operationId: get__api_v1_focus_stats
       tags:
       - Focus
@@ -632,7 +632,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -668,7 +668,7 @@ paths:
         schema:
           type: string
           default: America/Bogota
-        description: Zona IANA para agrupar dÃ­as
+        description: Zona IANA para agrupar dÃƒÂ­as
   /api/v1/games/pixel-sprint/scores:
     post:
       summary: Registrar partida
@@ -679,7 +679,7 @@ paths:
       - ClientID: []
       responses:
         '201':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -708,8 +708,8 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
-      description: max_combo es la racha mÃ¡xima de aciertos, no el multiplicador Ã—5.
-        Se verifican duraciÃ³n, nivel y puntuaciÃ³n contra las reglas pÃºblicas. No se
+      description: max_combo es la racha mÃƒÂ¡xima de aciertos, no el multiplicador Ãƒâ€”5.
+        Se verifican duraciÃƒÂ³n, nivel y puntuaciÃƒÂ³n contra las reglas pÃƒÂºblicas. No se
         garantiza anti-cheat.
       requestBody:
         required: true
@@ -726,7 +726,7 @@ paths:
       security: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -757,7 +757,7 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
-      description: 'Empates: resultado mÃ¡s antiguo y luego UUID. No publica client_id.'
+      description: 'Empates: resultado mÃƒÂ¡s antiguo y luego UUID. No publica client_id.'
       parameters:
       - name: limit
         in: query
@@ -770,7 +770,7 @@ paths:
         description: TOP 10 por defecto
   /api/v1/games/pixel-sprint/me:
     get:
-      summary: Historial y rÃ©cord personal
+      summary: Historial y rÃƒÂ©cord personal
       operationId: get__api_v1_games_pixel_sprint_me
       tags:
       - Pixel Sprint
@@ -778,7 +778,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -816,7 +816,7 @@ paths:
           minimum: 1
           maximum: 100
           default: 50
-        description: Cantidad mÃ¡xima de resultados
+        description: Cantidad mÃƒÂ¡xima de resultados
       - name: offset
         in: query
         required: false
@@ -836,7 +836,7 @@ paths:
       - ClientID: []
       responses:
         '201':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -865,9 +865,7 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
-      description: max_combo es la racha mÃ¡xima de aciertos, no el multiplicador Ã—5.
-        Se verifican duraciÃ³n, nivel y puntuaciÃ³n contra las reglas pÃºblicas. No se
-        garantiza anti-cheat.
+      description: Se validan las seis parejas, la racha, el nivel y la bonificación de tiempo. Las partidas incompletas duran 60 segundos.
       requestBody:
         required: true
         content:
@@ -883,7 +881,7 @@ paths:
       security: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -914,7 +912,7 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
-      description: 'Empates: resultado mÃ¡s antiguo y luego UUID. No publica client_id.'
+      description: 'Empates: resultado mÃƒÂ¡s antiguo y luego UUID. No publica client_id.'
       parameters:
       - name: limit
         in: query
@@ -927,7 +925,7 @@ paths:
         description: TOP 10 por defecto
   /api/v1/games/orbit-match/me:
     get:
-      summary: Historial y rÃ©cord personal
+      summary: Historial y rÃƒÂ©cord personal
       operationId: get__api_v1_games_orbit_match_me
       tags:
       - Orbit Match
@@ -935,7 +933,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -973,7 +971,7 @@ paths:
           minimum: 1
           maximum: 100
           default: 50
-        description: Cantidad mÃ¡xima de resultados
+        description: Cantidad mÃƒÂ¡xima de resultados
       - name: offset
         in: query
         required: false
@@ -993,7 +991,7 @@ paths:
       - ClientID: []
       responses:
         '201':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -1022,9 +1020,7 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
-      description: max_combo es la racha mÃ¡xima de aciertos, no el multiplicador Ã—5.
-        Se verifican duraciÃ³n, nivel y puntuaciÃ³n contra las reglas pÃºblicas. No se
-        garantiza anti-cheat.
+      description: Partidas de 40 segundos; se validan puntuación, nivel, racha y multiplicador hasta cuatro.
       requestBody:
         required: true
         content:
@@ -1040,7 +1036,7 @@ paths:
       security: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -1071,7 +1067,7 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
-      description: 'Empates: resultado mÃ¡s antiguo y luego UUID. No publica client_id.'
+      description: 'Empates: resultado mÃƒÂ¡s antiguo y luego UUID. No publica client_id.'
       parameters:
       - name: limit
         in: query
@@ -1084,7 +1080,7 @@ paths:
         description: TOP 10 por defecto
   /api/v1/games/pulse-orbit/me:
     get:
-      summary: Historial y rÃ©cord personal
+      summary: Historial y rÃƒÂ©cord personal
       operationId: get__api_v1_games_pulse_orbit_me
       tags:
       - Pulse Orbit
@@ -1092,7 +1088,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -1130,7 +1126,7 @@ paths:
           minimum: 1
           maximum: 100
           default: 50
-        description: Cantidad mÃ¡xima de resultados
+        description: Cantidad mÃƒÂ¡xima de resultados
       - name: offset
         in: query
         required: false
@@ -1150,7 +1146,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -1179,10 +1175,10 @@ paths:
           $ref: '#/components/responses/Error500'
         '503':
           $ref: '#/components/responses/Error503'
-      description: Sin conversation_id crea conversaciÃ³n al completar la respuesta.
-        Solo guarda pares exitosos. MÃ¡ximo 1000 caracteres, 12 mensajes histÃ³ricos
+      description: Sin conversation_id crea conversaciÃƒÂ³n al completar la respuesta.
+        Solo guarda pares exitosos. MÃƒÂ¡ximo 1000 caracteres, 12 mensajes histÃƒÂ³ricos
         de 1000 caracteres, 400 tokens de salida, 20 segundos de timeout. AI_PROVIDER=disabled
-        devuelve 503. LÃ­mites de consumo persisten en PostgreSQL.
+        devuelve 503. LÃƒÂ­mites de consumo persisten en PostgreSQL.
       requestBody:
         required: true
         content:
@@ -1191,7 +1187,7 @@ paths:
               $ref: '#/components/schemas/ChatRequest'
   /api/v1/chat/conversations:
     post:
-      summary: Crear conversaciÃ³n
+      summary: Crear conversaciÃƒÂ³n
       operationId: post__api_v1_chat_conversations
       tags:
       - Chat
@@ -1199,7 +1195,7 @@ paths:
       - ClientID: []
       responses:
         '201':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -1238,7 +1234,7 @@ paths:
       - ClientID: []
       responses:
         '200':
-          description: OperaciÃ³n exitosa
+          description: OperaciÃƒÂ³n exitosa
           content:
             application/json:
               schema:
@@ -1284,7 +1280,7 @@ paths:
           minimum: 1
           maximum: 100
           default: 50
-        description: Cantidad mÃ¡xima de resultados
+        description: Cantidad mÃƒÂ¡xima de resultados
       - name: offset
         in: query
         required: false
@@ -1296,7 +1292,7 @@ paths:
         description: Desplazamiento
   /api/v1/chat/conversations/{id}:
     delete:
-      summary: Borrar conversaciÃ³n e historial
+      summary: Borrar conversaciÃƒÂ³n e historial
       operationId: delete__api_v1_chat_conversations_id_
       tags:
       - Chat
@@ -1336,8 +1332,8 @@ components:
       type: apiKey
       in: header
       name: X-Client-ID
-      description: UUID canÃ³nico no nulo generado con crypto.randomUUID(). Guardar
-        en el navegador. No equivale a autenticaciÃ³n.
+      description: UUID canÃƒÂ³nico no nulo generado con crypto.randomUUID(). Guardar
+        en el navegador. No equivale a autenticaciÃƒÂ³n.
   schemas:
     Error:
       type: object
@@ -1879,7 +1875,7 @@ components:
       - github
   responses:
     Error400:
-      description: JSON invÃ¡lido
+      description: JSON invÃƒÂ¡lido
       content:
         application/json:
           schema:
@@ -1897,7 +1893,7 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
     Error405:
-      description: MÃ©todo no permitido
+      description: MÃƒÂ©todo no permitido
       content:
         application/json:
           schema:
@@ -1909,13 +1905,13 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
     Error422:
-      description: Error de validaciÃ³n
+      description: Error de validaciÃƒÂ³n
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Error429:
-      description: LÃ­mite de solicitudes
+      description: LÃƒÂ­mite de solicitudes
       content:
         application/json:
           schema:
