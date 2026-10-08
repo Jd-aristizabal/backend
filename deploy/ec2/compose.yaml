@@ -1,0 +1,99 @@
+name: johan-backend
+services:
+  postgres:
+    image: postgres:17.11-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: portfolio_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      POSTGRES_DB: portfolio
+    command: [postgres, -c, ssl=on, -c, ssl_cert_file=/tls/server.crt, -c, ssl_key_file=/tls/server.key, -c, shared_buffers=64MB, -c, max_connections=50]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./tls:/tls:ro
+    networks: [database]
+    mem_limit: 256m
+    logging: &logging
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U portfolio_admin -d portfolio"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  migrate:
+    image: johan-backend:ec2
+    entrypoint: [/app/migrate]
+    command: [up]
+    environment:
+      DATABASE_URL: postgres://portfolio_admin:${POSTGRES_PASSWORD:?}@postgres:5432/portfolio?sslmode=verify-full
+      PGSSLROOTCERT: /tls/server.crt
+    volumes: ["./tls/server.crt:/tls/server.crt:ro"]
+    networks: [database]
+    depends_on:
+      postgres: {condition: service_healthy}
+    logging: *logging
+  provision:
+    image: johan-backend:ec2
+    entrypoint: [/app/provision]
+    environment:
+      DATABASE_URL: postgres://portfolio_admin:${POSTGRES_PASSWORD:?}@postgres:5432/portfolio?sslmode=verify-full
+      PGSSLROOTCERT: /tls/server.crt
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?}
+    volumes: ["./tls/server.crt:/tls/server.crt:ro"]
+    networks: [database]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    logging: *logging
+  backend:
+    image: johan-backend:ec2
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 256m
+    environment:
+      APP_ENV: production
+      PORT: "8080"
+      DATABASE_URL: postgres://backend_api:${APP_DB_PASSWORD:?}@postgres:5432/portfolio?sslmode=verify-full
+      PGSSLROOTCERT: /tls/server.crt
+      CORS_ALLOWED_ORIGINS: https://jd-aristizabal.vercel.app
+      AI_PROVIDER: openai-compatible
+      AI_API_KEY: ${AI_API_KEY:?}
+      AI_MODEL: ${AI_MODEL:?}
+      AI_BASE_URL: https://generativelanguage.googleapis.com/v1beta/openai/
+      CHAT_DAILY_LIMIT: "200"
+      TRUSTED_PROXY_CIDRS: 172.30.10.2/32
+    volumes: ["./tls/server.crt:/tls/server.crt:ro"]
+    networks:
+      edge: {ipv4_address: 172.30.10.3}
+      database: {}
+    depends_on:
+      provision: {condition: service_completed_successfully}
+    logging: *logging
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    mem_limit: 128m
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      edge: {ipv4_address: 172.30.10.2}
+    depends_on:
+      backend: {condition: service_healthy}
+    logging: *logging
+networks:
+  edge:
+    ipam:
+      config: [{subnet: 172.30.10.0/24}]
+  database:
+    internal: true
+    ipam:
+      config: [{subnet: 172.30.11.0/24}]
+volumes:
+  postgres_data:
+  caddy_data:
+  caddy_config:
