@@ -22,7 +22,7 @@ El grupo de seguridad debe permitir TCP 80 y 443 desde Internet. SSH debe conser
 
 Se verificaron en EC2 `/health`, `/ready`, creación/listado/eliminación de tarea, respuesta real de Gemini y persistencia de dos mensajes. Las migraciones y el provisionamiento finalizaron con código 0. PostgreSQL confirmó TLS en conexiones de `backend_api`.
 
-Después de abrir los puertos del grupo de seguridad, se verificó HTTPS público con certificado válido el 8 de octubre de 2026: /ready devolvió 200, HTTP redirigió con 308 a HTTPS, CORS aceptó el origen de Vercel, el perfil público respondió y Gemini generó una respuesta real mediante /api/v1/chat. Los dos mensajes se recuperaron desde PostgreSQL; la conversación de prueba fue eliminada. La UI de Vercel no fue modificada para consumir esta API.
+Después de abrir los puertos del grupo de seguridad, se verificó HTTPS público con certificado válido el 8 de octubre de 2026: /ready devolvió 200, HTTP redirigió con 308 a HTTPS, CORS aceptó el origen de Vercel, el perfil público respondió y Gemini generó una respuesta real mediante /api/v1/chat. Los dos mensajes se recuperaron desde PostgreSQL; la conversación de prueba fue eliminada. El frontend de Vercel quedó integrado con esta API el 8 de octubre de 2026, conservando su dominio, componentes y estilos. Se comprobaron desde el navegador tareas persistentes, una sesión real de un minuto, respuesta de Gemini con recuperación de historial y una partida completa de Pixel Sprint con récord persistente y leaderboard real.
 
 ## Operación y respaldos
 

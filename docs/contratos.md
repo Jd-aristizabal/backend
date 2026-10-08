@@ -2,7 +2,7 @@
 
 Fuente revisada el 7 de octubre de 2026: [portafolio](https://jd-aristizabal.vercel.app), [Focus Flow](https://jd-aristizabal.vercel.app/works/focus-flow/) y [Pixel Sprint](https://jd-aristizabal.vercel.app/works/pixel-sprint/), incluyendo módulos JavaScript publicados. No se modificó ningún archivo del frontend.
 
-Actualmente el frontend guarda Focus Flow en `focus-flow:v1`, el récord en `pixel-sprint:best` y responde el chat con acciones predefinidas. No llama a esta API todavía. La integración posterior debe sustituir únicamente esas fuentes de datos, preservando sus componentes y estilos.
+En la revisión inicial, el frontend guardaba Focus Flow en `focus-flow:v1`, el récord en `pixel-sprint:best` y responde el chat con acciones predefinidas. La integración se publicó el 8 de octubre de 2026 en el mismo dominio de Vercel: ahora usa esta API para tareas, sesiones, estadísticas, puntuaciones y chat. La integración posterior debe sustituir únicamente esas fuentes de datos, preservando sus componentes y estilos.
 
 La URL base debe ser una variable pública que contenga exclusivamente la URL HTTPS del backend. Las claves de IA y de base de datos nunca son variables públicas ni deben quedar en Vercel del lado del navegador.
 
