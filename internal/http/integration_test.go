@@ -65,12 +65,21 @@ func setup(t *testing.T) (http.Handler, *pgxpool.Pool, *testProvider) {
 		t.Fatal(err)
 	}
 	t.Cleanup(func() { db.Close(); _, _ = admin.Exec(ctx, "DROP SCHEMA "+quoted+" CASCADE"); _ = admin.Close(ctx) })
-	up, err := migrations.Files.ReadFile("000001_initial.up.sql")
+	files, err := migrations.Files.ReadDir(".")
 	if err != nil {
 		t.Fatal(err)
 	}
-	if _, err = db.Exec(ctx, string(up)); err != nil {
-		t.Fatal(err)
+	for _, file := range files {
+		if !strings.HasSuffix(file.Name(), ".up.sql") {
+			continue
+		}
+		up, readErr := migrations.Files.ReadFile(file.Name())
+		if readErr != nil {
+			t.Fatal(readErr)
+		}
+		if _, err = db.Exec(ctx, string(up)); err != nil {
+			t.Fatal(err)
+		}
 	}
 	p := &testProvider{}
 	c := config.Config{Origins: []string{"https://jd-aristizabal.vercel.app"}, AITimeout: time.Second, MaxTokens: 400, ChatDailyLimit: 1000}

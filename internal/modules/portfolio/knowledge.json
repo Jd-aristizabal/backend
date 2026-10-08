@@ -5,30 +5,150 @@
     "location": "Colombia",
     "availability": "Abierto a nuevas ideas; disponible en todo el mundo",
     "bio": "Transformo ideas en experiencias digitales claras, intuitivas y con carácter. Me gusta encontrar ese punto donde el diseño, el código y la interacción hacen clic.",
-    "focus": ["SvelteKit", "TypeScript"],
-    "services": ["Diseño de interfaces", "Desarrollo frontend", "Interacción y motion"],
-    "experience": "El portafolio muestra dos proyectos de diseño y desarrollo e interacción y creative coding en 2026. No publica empleadores ni años de experiencia."
+    "focus": [
+      "SvelteKit",
+      "TypeScript"
+    ],
+    "services": [
+      "Diseño de interfaces",
+      "Desarrollo frontend",
+      "Interacción y motion"
+    ],
+    "experience": "El portafolio muestra cinco proyectos de diseño, desarrollo e interacción en 2026. No publica empleadores ni años de experiencia."
   },
   "projects": [
-    {"id":"focus-flow","name":"Focus Flow","description":"Un espacio para organizarte y encontrar tu enfoque.","category":"Diseño y desarrollo","year":2026,"technologies":["SvelteKit","TypeScript"],"url":"https://jd-aristizabal.vercel.app/works/focus-flow/","features":["Tareas con prioridad alta, media o baja","Temporizador de 1, 15, 25 y 50 minutos","Estadísticas de enfoque e historial de sesiones"]},
-    {"id":"pixel-sprint","name":"Pixel Sprint","description":"Un experimento en reflejos, ritmo y una partida más.","category":"Interacción y creative coding","year":2026,"technologies":["SvelteKit","TypeScript"],"url":"https://jd-aristizabal.vercel.app/works/pixel-sprint/","features":["Partidas de 30 segundos","Tablero de nueve casillas","Combo multiplicador hasta ×5","Ocho niveles","Récord personal y leaderboard"]}
+    {
+      "id": "focus-flow",
+      "name": "Focus Flow",
+      "description": "Un espacio para organizarte y encontrar tu enfoque.",
+      "category": "Diseño y desarrollo",
+      "year": 2026,
+      "technologies": [
+        "SvelteKit",
+        "TypeScript"
+      ],
+      "url": "https://jd-aristizabal.vercel.app/works/focus-flow/",
+      "features": [
+        "Tareas con prioridad alta, media o baja",
+        "Temporizador de 1, 15, 25 y 50 minutos",
+        "Estadísticas de enfoque e historial de sesiones"
+      ]
+    },
+    {
+      "id": "pixel-sprint",
+      "name": "Pixel Sprint",
+      "description": "Un experimento en reflejos, ritmo y una partida más.",
+      "category": "Interacción y creative coding",
+      "year": 2026,
+      "technologies": [
+        "SvelteKit",
+        "TypeScript"
+      ],
+      "url": "https://jd-aristizabal.vercel.app/works/pixel-sprint/",
+      "features": [
+        "Partidas de 30 segundos",
+        "Tablero de nueve casillas",
+        "Combo multiplicador hasta ×5",
+        "Ocho niveles",
+        "Récord personal y leaderboard"
+      ]
+    },
+    {
+      "id": "orbit-match",
+      "name": "Orbit Match",
+      "description": "Juego de memoria de seis parejas.",
+      "category": "Interacción y creative coding",
+      "year": 2026,
+      "technologies": [
+        "SvelteKit",
+        "TypeScript"
+      ],
+      "url": "https://jd-aristizabal.vercel.app/works/orbit-match/",
+      "features": [
+        "Partidas de hasta 60 segundos",
+        "Rachas y bonificación por tiempo",
+        "Nombre, historial y ranking global"
+      ]
+    },
+    {
+      "id": "pulse-orbit",
+      "name": "Pulse Orbit",
+      "description": "Juego de precisión y ritmo orbital.",
+      "category": "Interacción y creative coding",
+      "year": 2026,
+      "technologies": [
+        "SvelteKit",
+        "TypeScript"
+      ],
+      "url": "https://jd-aristizabal.vercel.app/works/pulse-orbit/",
+      "features": [
+        "Partidas de 40 segundos",
+        "Multiplicadores y ocho niveles",
+        "Nombre, historial y ranking global"
+      ]
+    },
+    {
+      "id": "color-studio",
+      "name": "Color Studio",
+      "description": "Estudio interactivo para crear paletas de color.",
+      "category": "Diseño y creative coding",
+      "year": 2026,
+      "technologies": [
+        "SvelteKit",
+        "TypeScript"
+      ],
+      "url": "https://jd-aristizabal.vercel.app/lab/color-studio/",
+      "features": [
+        "Armonías de color",
+        "Vista de contraste",
+        "Exportación de paletas CSS"
+      ]
+    }
   ],
   "skills": [
-    {"name":"JavaScript","category":"Lenguaje"},
-    {"name":"Go","category":"Lenguaje"},
-    {"name":"Python","category":"Lenguaje"},
-    {"name":"HTML","category":"Fundamentos web"},
-    {"name":"CSS","category":"Fundamentos web"},
-    {"name":"PHP","category":"Lenguaje"},
-    {"name":"TypeScript","category":"Lenguaje"},
-    {"name":"SvelteKit","category":"Framework"}
+    {
+      "name": "JavaScript",
+      "category": "Lenguaje"
+    },
+    {
+      "name": "Go",
+      "category": "Lenguaje"
+    },
+    {
+      "name": "Python",
+      "category": "Lenguaje"
+    },
+    {
+      "name": "HTML",
+      "category": "Fundamentos web"
+    },
+    {
+      "name": "CSS",
+      "category": "Fundamentos web"
+    },
+    {
+      "name": "PHP",
+      "category": "Lenguaje"
+    },
+    {
+      "name": "TypeScript",
+      "category": "Lenguaje"
+    },
+    {
+      "name": "SvelteKit",
+      "category": "Framework"
+    }
   ],
   "contact": {
-    "email":"jdaristizabal8725@gmail.com",
-    "whatsapp":"+57 3202678913",
-    "whatsapp_url":"https://wa.me/573202678913",
-    "portfolio":"https://jd-aristizabal.vercel.app",
-    "github":null
+    "email": "jdaristizabal8725@gmail.com",
+    "whatsapp": "+57 3202678913",
+    "whatsapp_url": "https://wa.me/573202678913",
+    "portfolio": "https://jd-aristizabal.vercel.app",
+    "github": null
   },
-  "source": {"url":"https://jd-aristizabal.vercel.app","reviewed_at":"2026-10-07","notes":"GitHub no está publicado en el sitio revisado. No se infieren datos personales desde el remoto del repositorio."}
+  "source": {
+    "url": "https://jd-aristizabal.vercel.app",
+    "reviewed_at": "2026-10-08",
+    "notes": "GitHub no está publicado en el sitio revisado. No se infieren datos personales desde el remoto del repositorio."
+  }
 }

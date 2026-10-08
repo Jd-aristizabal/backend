@@ -48,3 +48,15 @@ El frontend limita actualmente el input a 200 caracteres; el backend acepta hast
 ## Conocimiento
 
 `internal/modules/portfolio/knowledge.json` centraliza los hechos publicados. GitHub se devuelve como `null` porque el sitio revisado no lo publica. No se inventan historial laboral, tarifas ni años de experiencia. El remoto Git no se usa para inferir el contacto público del portafolio.
+
+## Ranking global de los tres juegos
+
+Desde el 8 de octubre de 2026, `pixel-sprint`, `orbit-match` y `pulse-orbit` usan las rutas `POST /api/v1/games/{game}/scores`, `GET .../leaderboard` y `GET .../me`. Todos envían nombre y métricas. Orbit Match y Pulse Orbit requieren un nombre de 2 a 40 caracteres; Pixel Sprint conserva compatibilidad con clientes anteriores sin nombre.
+
+`submission_id` es un UUID estable por partida. Reintentar el mismo contenido devuelve el mismo resultado; cambiar el contenido o cliente con ese UUID devuelve 409. No se duplica una partida cuando se pierde la respuesta HTTP.
+
+Cada ranking publica la mejor puntuación por cliente con el último nombre enviado para ese juego. Las puntuaciones históricas conservan el apodo con el que se guardaron. El TOP 10 es público; el historial personal requiere `X-Client-ID`. PostgreSQL conserva todos los resultados aceptados. La migración `000002_arcade_scores` añade los juegos sin borrar Focus Flow, chat ni Pixel Sprint.
+
+El frontend confirma guardado únicamente tras recibir éxito de la API. Las partidas antiguas con nombre en `portfolio:arcade-scores:v1` se importan de dos en dos, con un intervalo de 65 segundos mientras una página de juego permanece abierta. Solo se retiran de la cola local tras aceptación del servidor; las inválidas o pendientes conservan su copia local. La fecha registrada es la fecha de importación. Los datos privados siguen dependiendo del UUID de ese navegador, sin login ni sincronización automática entre dispositivos.
+
+Color Studio forma parte de los cinco proyectos publicados en Portfolio API y en el contexto del chatbot. Su interfaz actual crea y exporta paletas; no contiene partidas, puntuaciones ni un formulario de guardar paletas.

@@ -69,12 +69,12 @@ func New(c config.Config, db *pgxpool.Pool, logger *slog.Logger, provider chatbo
 			r.Get("/portfolio/projects", func(w http.ResponseWriter, r *http.Request) { transport.Data(w, 200, p.Projects) })
 			r.Get("/portfolio/skills", func(w http.ResponseWriter, r *http.Request) { transport.Data(w, 200, p.Skills) })
 			r.Get("/portfolio/contact", func(w http.ResponseWriter, r *http.Request) { transport.Data(w, 200, p.Contact) })
-			r.Get("/games/pixel-sprint/leaderboard", wrap(func(w http.ResponseWriter, r *http.Request) error {
+			r.Get("/games/{game}/leaderboard", wrap(func(w http.ResponseWriter, r *http.Request) error {
 				limit, _, err := transport.Pagination(r, 10, 100)
 				if err != nil {
 					return err
 				}
-				v, err := g.Leaderboard(r.Context(), limit)
+				v, err := g.LeaderboardGame(r.Context(), chi.URLParam(r, "game"), limit)
 				return respond(w, 200, v, err)
 			}))
 		})
@@ -150,20 +150,20 @@ func New(c config.Config, db *pgxpool.Pool, logger *slog.Logger, provider chatbo
 				v, err := f.Stats(r.Context(), mw.Client(r), r.URL.Query().Get("time_zone"))
 				return respond(w, 200, v, err)
 			}))
-			r.Get("/games/pixel-sprint/me", wrap(func(w http.ResponseWriter, r *http.Request) error {
+			r.Get("/games/{game}/me", wrap(func(w http.ResponseWriter, r *http.Request) error {
 				limit, offset, err := transport.Pagination(r, 10, 100)
 				if err != nil {
 					return err
 				}
-				v, err := g.Me(r.Context(), mw.Client(r), limit, offset)
+				v, err := g.MeGame(r.Context(), mw.Client(r), chi.URLParam(r, "game"), limit, offset)
 				return respond(w, 200, v, err)
 			}))
-			r.With(limiter.Middleware("score")).Post("/games/pixel-sprint/scores", wrap(func(w http.ResponseWriter, r *http.Request) error {
+			r.With(limiter.Middleware("score")).Post("/games/{game}/scores", wrap(func(w http.ResponseWriter, r *http.Request) error {
 				var req games.SubmitScore
 				if err := transport.Decode(w, r, &req); err != nil {
 					return err
 				}
-				v, err := g.Submit(r.Context(), mw.Client(r), req)
+				v, err := g.SubmitGame(r.Context(), mw.Client(r), chi.URLParam(r, "game"), req)
 				return respond(w, 201, v, err)
 			}))
 			r.With(limiter.Middleware("chat")).Post("/chat", wrap(func(w http.ResponseWriter, r *http.Request) error {

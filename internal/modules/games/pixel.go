@@ -16,20 +16,22 @@ import (
 )
 
 type SubmitScore struct {
-	Score           int     `json:"score"`
-	MaxCombo        int     `json:"max_combo"`
-	Level           int     `json:"level"`
-	DurationSeconds int     `json:"duration_seconds"`
-	PlayerName      *string `json:"player_name"`
+	Score           int        `json:"score"`
+	MaxCombo        int        `json:"max_combo"`
+	Level           int        `json:"level"`
+	DurationSeconds int        `json:"duration_seconds"`
+	PlayerName      *string    `json:"player_name"`
+	SubmissionID    *uuid.UUID `json:"submission_id,omitempty"`
 }
 
 func (r *SubmitScore) UnmarshalJSON(b []byte) error {
 	var raw struct {
-		Score           *int    `json:"score"`
-		MaxCombo        *int    `json:"max_combo"`
-		Level           *int    `json:"level"`
-		DurationSeconds *int    `json:"duration_seconds"`
-		PlayerName      *string `json:"player_name"`
+		Score           *int       `json:"score"`
+		MaxCombo        *int       `json:"max_combo"`
+		Level           *int       `json:"level"`
+		DurationSeconds *int       `json:"duration_seconds"`
+		PlayerName      *string    `json:"player_name"`
+		SubmissionID    *uuid.UUID `json:"submission_id"`
 	}
 	dec := json.NewDecoder(bytes.NewReader(b))
 	dec.DisallowUnknownFields()
@@ -39,7 +41,7 @@ func (r *SubmitScore) UnmarshalJSON(b []byte) error {
 	if raw.Score == nil || raw.MaxCombo == nil || raw.Level == nil || raw.DurationSeconds == nil {
 		return shared.Invalid("score, max_combo, level y duration_seconds son obligatorios")
 	}
-	*r = SubmitScore{*raw.Score, *raw.MaxCombo, *raw.Level, *raw.DurationSeconds, raw.PlayerName}
+	*r = SubmitScore{Score: *raw.Score, MaxCombo: *raw.MaxCombo, Level: *raw.Level, DurationSeconds: *raw.DurationSeconds, PlayerName: raw.PlayerName, SubmissionID: raw.SubmissionID}
 	return nil
 }
 
@@ -97,6 +99,12 @@ func (r *SubmitScore) Validate() error {
 			return shared.Invalid("score, combo y nivel incompatibles")
 		}
 	}
+	return r.validateName()
+}
+func (r *SubmitScore) validateName() error {
+	if r.SubmissionID != nil && *r.SubmissionID == uuid.Nil {
+		return shared.Invalid("submission_id inválido")
+	}
 	if r.PlayerName != nil {
 		v := strings.TrimSpace(*r.PlayerName)
 		if utf8.RuneCountInString(v) > 40 {
@@ -110,6 +118,10 @@ func (r *SubmitScore) Validate() error {
 		if v == "" {
 			r.PlayerName = nil
 		} else {
+			v = strings.Join(strings.Fields(v), " ")
+			if utf8.RuneCountInString(v) < 2 {
+				return shared.Invalid("player_name debe tener al menos 2 caracteres")
+			}
 			r.PlayerName = &v
 		}
 	}
@@ -124,10 +136,7 @@ func scan(row pgx.Row) (Score, error) {
 	return s, err
 }
 func (s *Service) Submit(ctx context.Context, client uuid.UUID, r SubmitScore) (Score, error) {
-	if err := r.Validate(); err != nil {
-		return Score{}, err
-	}
-	return scan(s.db.QueryRow(ctx, "INSERT INTO pixel_sprint_scores(id,client_id,score,max_combo,level,duration_seconds,player_name) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING "+columns, uuid.New(), client, r.Score, r.MaxCombo, r.Level, r.DurationSeconds, r.PlayerName))
+	return s.SubmitGame(ctx, client, "pixel-sprint", r)
 }
 func readScores(rows pgx.Rows) ([]Score, error) {
 	defer rows.Close()
@@ -142,22 +151,8 @@ func readScores(rows pgx.Rows) ([]Score, error) {
 	return scores, rows.Err()
 }
 func (s *Service) Leaderboard(ctx context.Context, limit int) ([]Score, error) {
-	rows, err := s.db.Query(ctx, `SELECT `+columns+` FROM (SELECT DISTINCT ON(client_id) * FROM pixel_sprint_scores ORDER BY client_id,score DESC,created_at,id) best ORDER BY score DESC,created_at,id LIMIT $1`, limit)
-	if err != nil {
-		return nil, err
-	}
-	return readScores(rows)
+	return s.LeaderboardGame(ctx, "pixel-sprint", limit)
 }
 func (s *Service) Me(ctx context.Context, client uuid.UUID, limit, offset int) (Personal, error) {
-	p := Personal{Scores: []Score{}}
-	err := s.db.QueryRow(ctx, "SELECT coalesce(max(score),0),count(*) FROM pixel_sprint_scores WHERE client_id=$1", client).Scan(&p.BestScore, &p.GamesPlayed)
-	if err != nil {
-		return p, err
-	}
-	rows, err := s.db.Query(ctx, "SELECT "+columns+" FROM pixel_sprint_scores WHERE client_id=$1 ORDER BY created_at DESC,id LIMIT $2 OFFSET $3", client, limit, offset)
-	if err != nil {
-		return p, err
-	}
-	p.Scores, err = readScores(rows)
-	return p, err
+	return s.MeGame(ctx, client, "pixel-sprint", limit, offset)
 }

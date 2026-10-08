@@ -48,7 +48,7 @@ func run() error {
 		"REVOKE CREATE ON SCHEMA public FROM PUBLIC",
 		"GRANT CONNECT ON DATABASE " + pgx.Identifier{db}.Sanitize() + " TO backend_api",
 		"GRANT USAGE ON SCHEMA public TO backend_api",
-		"GRANT SELECT,INSERT,UPDATE,DELETE ON focus_tasks,focus_sessions,pixel_sprint_scores,chat_conversations,chat_messages,rate_limit_buckets TO backend_api",
+		"GRANT SELECT,INSERT,UPDATE,DELETE ON focus_tasks,focus_sessions,pixel_sprint_scores,arcade_scores,chat_conversations,chat_messages,rate_limit_buckets TO backend_api",
 		"GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO backend_api",
 	}
 	for _, sql := range statements {
